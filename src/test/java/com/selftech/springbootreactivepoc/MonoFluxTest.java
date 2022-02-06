@@ -16,4 +16,15 @@ public class MonoFluxTest {
         Mono<String> name = Mono.just("Mahfooz").log();
         name.subscribe(System.out::println);
     }
+
+    @Test
+    public void testMonoException(){
+        // Here monoString is our Publisher
+        Mono<?> monoString = Mono.just("selftect")
+                .then(Mono.error(new RuntimeException("Error Occured")))
+                .log();
+        // Calling subscribe method on publisher
+        monoString.subscribe((x)-> System.out.println(x),
+                (e)-> System.out.println(e.getMessage()));
+    }
 }
